@@ -41,7 +41,7 @@ const App = () => {
       console.error(`Error fetching movies: ${error}`);
       setErrorMessage('Failed to fetch movies');
     } finally {
-      setIsLoading(false);
+      setIsLoading(true);
     }
   }
 
@@ -64,6 +64,18 @@ const App = () => {
        
        <section className="all-movies">
        <h2>Popular Movies</h2>
+        {isLoading ? (
+           <p className="text-white">Loading...</p>
+        ) : errorMessage ? (
+            <p className="text-red-500">{errorMessage}</p>  
+          ) : (
+            <ul>
+              {movieList.map((movie) =>(
+                <p key={movie.id} className="text-white">{movie.title}</p>
+              ))}
+            </ul>
+          )}
+
        <h1 className="text-white">{searchTerm}</h1>
        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
        </section>
