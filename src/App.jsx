@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Search from "./components/Search"
+import Spinner from "./components/Spinner"
+import MovieCard from "./components/MovieCard";
 
 //API 
 
@@ -19,7 +21,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [movieList, setMovieList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // This will be used to show a spinner when the app is loading
 
   const fetchMovies = async() => {
     setIsLoading(true);
@@ -41,7 +43,7 @@ const App = () => {
       console.error(`Error fetching movies: ${error}`);
       setErrorMessage('Failed to fetch movies');
     } finally {
-      setIsLoading(true);
+      setIsLoading(false); // This will always run
     }
   }
 
@@ -63,15 +65,15 @@ const App = () => {
 
        
        <section className="all-movies">
-       <h2>Popular Movies</h2>
+       <h2 className="mt-[40px]">Popular Movies</h2>
         {isLoading ? (
-           <p className="text-white">Loading...</p>
+           <Spinner />
         ) : errorMessage ? (
             <p className="text-red-500">{errorMessage}</p>  
           ) : (
             <ul>
               {movieList.map((movie) =>(
-                <p key={movie.id} className="text-white">{movie.title}</p>
+                <MovieCard key={movie.id} movie={movie} />
               ))}
             </ul>
           )}
