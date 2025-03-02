@@ -5,11 +5,28 @@ const MovieCard = ({ movie:
 }) => {
   return (
     <div className='movie-card text-center p-4 rounded-lg'>
-      <img src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` :
-      '/no-movie.png'} />
+      <img 
+      src={poster_path ? 
+        `https://image.tmdb.org/t/p/w500/${poster_path}` :'/no-movie.png'}
+        
+        />
       
         <div className='mt-4'>
-        <p className="text-white">{title}</p>
+        <h3>{title}</h3>
+
+        <div className='content'>
+            <div className='rating'>
+                <img src="star.svg" alt="star" />
+                <p>{vote_average ? vote_average.toFixed(1) : 'N/A'}</p>
+            </div>
+
+            <span>•</span>
+            <p className='lang'>{original_language}</p>
+            <span>•</span>
+            <p className='year'>
+                {release_date ? release_date.split('-')[0] : 'N/A'}
+            </p>
+        </div>
         </div>
     </div>
   )
