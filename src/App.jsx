@@ -3,6 +3,7 @@ import Search from "./components/Search"
 import Spinner from "./components/Spinner"
 import MovieCard from "./components/MovieCard"
 import { useDebounce }  from "react-use"
+import { updateSearchCount } from "./appwrite.js"
 
 //API 
 
@@ -41,7 +42,7 @@ const App = () => {
 
       const data = await response.json()
       setMovieList(data.results || [])
-      console.log(data)
+      updateSearchCount();
     } catch (error) {
       console.error(`Error fetching movies: ${error}`)
       setErrorMessage('Failed to fetch movies')
